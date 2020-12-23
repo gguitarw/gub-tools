@@ -10,6 +10,7 @@
       :key=i
       icon
       large
+      @click="$store.commit('audio/' + button.func)"
     >
       <v-icon>{{ button.icon }}</v-icon>
     </v-btn>
@@ -32,17 +33,10 @@ export default defineComponent({
 
   data: () => ({
     buttons: [
-      { icon: 'mdi-play' /*, func: () => {}*/ },
-      { icon: 'mdi-pause' },
-      { icon: 'mdi-stop' },
+      { icon: 'mdi-play', func: 'PLAY' },
+      { icon: 'mdi-pause', func: 'PAUSE_RESUME' },
+      { icon: 'mdi-stop', func: 'STOP' },
     ],
-    file: null,
   }),
-
-  methods: {
-    onUpload() {
-      console.log(this.file);
-    }
-  }
 })
 </script>
