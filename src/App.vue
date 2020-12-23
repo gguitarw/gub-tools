@@ -1,32 +1,50 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-system-bar app height="24">
+      <v-menu v-for="(menu, iMenu) in systemMenus" :key=iMenu>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-bind="attrs"
+            v-on="on"
+            text
+            tile
+            max-height="24"
+          >{{ menu.title }}</v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, i) in menu.items"
+            :key=i
+          >
+            <v-list-item-title>{{ item }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </v-system-bar>
+    
+    <!-- <v-app-bar app>
+      
+    </v-app-bar> -->
+
+    <!-- <v-main> -->
+      <router-view />
+    <!-- </v-main> -->
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import Vue from 'vue';
 
-#nav {
-  padding: 30px;
-}
+export default Vue.extend({
+  name: 'App',
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+  data: () => ({
+    systemMenus: [
+      {
+        title: 'File',
+        items: ['Open', 'Close', 'Save', 'Save As'],
+      },
+    ],
+  })
+});
+</script>
