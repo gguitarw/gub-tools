@@ -1,16 +1,9 @@
 <template>
   <div class="guitar-tools-playback-buttons">
-    <v-container>
-        <!-- @change="$store.dispatch('audio/loadAudioFromFile', $event)" -->
-        <!-- hide-input -->
-      <v-file-input
-        v-model="file"
-        accept="audio/*"
-        label="Select Audio File"
-      ></v-file-input>
-      <v-btn @click="onUpload">Upload</v-btn>
-    </v-container>
-
+    <!-- Based on https://codepen.io/blachocolat/pen/BgMKRQ -->
+    <v-btn @click="$refs.uploader.click()" icon large>
+      <v-icon>mdi-content-save</v-icon>
+    </v-btn>
 
     <v-btn
       v-for="(button, i) in buttons"
@@ -20,6 +13,14 @@
     >
       <v-icon>{{ button.icon }}</v-icon>
     </v-btn>
+
+    <input
+      ref="uploader"
+      class="d-none"
+      type="file"
+      accept="audio/*"
+      @change="$store.dispatch('audio/loadAudioFromFile', $event.target.files[0])"
+    >
   </div>
 </template>
 
