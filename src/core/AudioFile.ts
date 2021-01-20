@@ -5,10 +5,11 @@ class PauseState {
 }
 
 export default class AudioFile {
+  file: File;
   ctx: AudioContext;
 
-  buffer!: AudioBuffer;
-  bufferSourceNode: AudioBufferSourceNode;
+  buffer?: AudioBuffer;
+  bufferSourceNode?: AudioBufferSourceNode;
 
   currentSeekTime = 0;
   currentPlaybackTime = 0;
@@ -16,22 +17,46 @@ export default class AudioFile {
   pauseState = new PauseState();
 
   constructor(file: File, audioContext?: AudioContext) {
+    this.file = file;
     this.ctx = audioContext ? audioContext : new AudioContext();
+  }
 
-    const reader = new FileReader();
-    reader.onload = (e: Event) => {
-      const encoded = (e.target as FileReader).result as Float32Array;
-      this.ctx.decodeAudioData(encoded)
-        .then(decoded => { this.buffer = decoded });
-    };
+  async _loadFile() {
+    return new Promise((resolve, reject) => {const reader = new FileReader();
+      reader.onload = (e: Event) => {
+        resolve()
+        const encoded = (e.target as FileReader).result as Float32Array;
+        this.ctx.decodeAudioData(encoded)
+          .then(decoded => { this.buffer = decoded; console.log('Saved to buffer'); });
+      };
+      
+      reader.readAsArrayBuffer(this.file);
+    });
 
-    reader.readAsArrayBuffer(file);
-    
-    this.bufferSourceNode = this.ctx.createBufferSource();
-    this.bufferSourceNode.buffer = this.buffer;
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        resolve(e.target.result.toString()
+          .split('')
+          .map(bit => bit.codePointAt(0).toString(16).toUpperCase())
+          .join(''));
+      };
+      reader.onerror = () => {
+        reject(new Error('Unable to read..'));
+      };
+      reader.readAsBinaryString(blob.slice(0, 4));
+    });
+  }
+
+  async init() {
+    await this._loadFile();
+
+    return this;
   }
 
   play(time?: number) {
+    if (this.buffer === undefined) return;
+    
     this.bufferSourceNode = this.ctx.createBufferSource();
     this.bufferSourceNode.buffer = this.buffer;
     this.bufferSourceNode.connect(this.ctx.destination);
@@ -44,15 +69,13 @@ export default class AudioFile {
   pause() {
     // Not currently paused, so pause
     this.pauseState.pausedTime = this.ctx.currentTime;
-    this.bufferSourceNode.stop();
+    this.bufferSourceNode?.stop();
     this.pauseState.paused = true;
-    console.log("pause");
   }
 
   resume() {
     // Currently paused, so resume
     this.pauseState.paused ? this.play(this.pauseState.pausedTime) : this.play();
-    console.log("resume");
   }
 
   pauseResume() {
@@ -60,8 +83,7 @@ export default class AudioFile {
   }
 
   stop() {
-    this.bufferSourceNode.stop();
-    console.log("stop");
+    this.bufferSourceNode?.stop();
   }
 
 }
