@@ -29,6 +29,7 @@ module.exports = {
     '@typescript-eslint/no-useless-constructor': 'error',
     'no-continue': 'off', // https://github.com/airbnb/javascript/issues/1103
     'no-underscore-dangle': ['error', { allowAfterThis: true }],
+    'no-unused-expressions': ['error', { allowShortCircuit: true, allowTernary: true }],
   },
   overrides: [
     {

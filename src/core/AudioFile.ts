@@ -32,10 +32,11 @@ export default class AudioFile {
         this.ctx.decodeAudioData(encoded).then((decoded) => {
           this.buffer = decoded;
           console.log('Saved to buffer');
+          resolve(this.buffer);
         });
-        resolve(this.buffer);
       };
       reader.onerror = () => {
+        console.error('Unable to read file');
         reject(new Error('Unable to read file'));
       };
 
@@ -64,7 +65,7 @@ export default class AudioFile {
   pause() {
     // Not currently paused, so pause
     this.pauseState.pausedTime = this.ctx.currentTime;
-    this.bufferSourceNode?.stop();
+    if (this.bufferSourceNode !== undefined) this.bufferSourceNode.stop();
     this.pauseState.paused = true;
   }
 
@@ -78,6 +79,6 @@ export default class AudioFile {
   }
 
   stop() {
-    this.bufferSourceNode?.stop();
+    if (this.bufferSourceNode !== undefined) this.bufferSourceNode.stop();
   }
 }
