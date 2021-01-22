@@ -38,5 +38,5 @@ export default defineComponent({
       { icon: 'mdi-stop', func: 'STOP' },
     ],
   }),
-})
+});
 </script>

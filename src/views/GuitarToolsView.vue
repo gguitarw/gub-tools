@@ -24,5 +24,5 @@ export default defineComponent({
     MainScreen,
     PlaybackButtons,
   },
-})
+});
 </script>

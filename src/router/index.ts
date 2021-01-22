@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import VueRouter, { RouteConfig } from 'vue-router'
+import Vue from 'vue';
+import VueRouter, { RouteConfig } from 'vue-router';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   // {
@@ -17,14 +17,14 @@ const routes: Array<RouteConfig> = [
   {
     path: '/guitar-tools',
     name: 'Guitar Tools',
-    component: () => import('@/views/GuitarToolsView.vue')
-  }
-]
+    component: () => import('@/views/GuitarToolsView.vue'),
+  },
+];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

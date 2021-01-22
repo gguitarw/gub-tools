@@ -21,9 +21,9 @@
         </v-list>
       </v-menu>
     </v-system-bar>
-    
+
     <!-- <v-app-bar app>
-      
+
     </v-app-bar> -->
 
     <!-- <v-main> -->
@@ -45,6 +45,6 @@ export default Vue.extend({
         items: ['Open', 'Close', 'Save', 'Save As'],
       },
     ],
-  })
+  }),
 });
 </script>

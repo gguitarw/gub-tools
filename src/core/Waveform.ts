@@ -1,4 +1,3 @@
-
 export default class WaveformCache {
   // resolution: number;
   data: Float32Array;
