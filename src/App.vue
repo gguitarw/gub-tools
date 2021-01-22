@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-system-bar app height="24">
+    <!-- <v-system-bar app height="24">
       <v-menu v-for="(menu, iMenu) in systemMenus" :key=iMenu>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
@@ -20,7 +20,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-    </v-system-bar>
+    </v-system-bar> -->
 
     <!-- <v-app-bar app>
 

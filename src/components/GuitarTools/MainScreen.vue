@@ -1,7 +1,7 @@
 <template>
   <div class="guitar-tools-main">
     <!-- {{ fileName }} -->
-
+    <Spectrogram />
     <Waveform />
   </div>
 </template>
@@ -10,12 +10,14 @@
 import { defineComponent, inject, computed } from '@vue/composition-api';
 import { Store } from 'vuex';
 import Waveform from '@/components/GuitarTools/Waveform.vue';
+import Spectrogram from '@/components/GuitarTools/Spectrogram.vue';
 
 export default defineComponent({
   name: 'MainScreen',
 
   components: {
     Waveform,
+    Spectrogram,
   },
 
   setup() {
@@ -28,3 +30,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.guitar-tools-main {
+  width: 100%;
+}
+</style>
