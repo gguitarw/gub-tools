@@ -1,6 +1,6 @@
 <template>
-  <div class="guitar-tools-spectrogram-container">
-    <div id="wavesurfer-spectrogram" />
+  <div class="guitar-tools-spectrogram-container" height="800px">
+    <div id="wavesurfer-spectrogram" height="800px" />
   </div>
 </template>
 

@@ -5,17 +5,20 @@
     </v-main>
 
     <v-footer app class="d-flex justify-start">
-        <!-- :disabled="!isLoaded" -->
-      <v-slider
-        v-model="volume"
-        min="0"
-        max="1"
-        step=".01"
-        width="10%"
-      ></v-slider>
+      <v-row>
+        <v-col>
+          <v-slider
+          v-model="volume"
+          min="0"
+          max="1"
+          step=".01"
+          ></v-slider>
+        </v-col>
 
-      <playback-buttons />
-      <!-- <v-spacer /> -->
+        <v-col cols="2">
+          <playback-buttons />
+        </v-col>
+      </v-row>
     </v-footer>
   </div>
 </template>
@@ -59,3 +62,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+.v-slider {
+  max-width: clamp(100px, 20vw, 400px);
+}
+</style>
